@@ -59,7 +59,7 @@
         if ([LocationManager locationServicesEnabled]) {
             [[LocationManager shareInstance] getLivePlacemark:^(CLPlacemark *placemark) {
             self.liveLocationLabel.text = placemark.locality;
-            if (self.currentLocationLabel.text == nil || self.currentLocationLabel.text.length == 0) {
+            if ([LocationManager shareInstance].currentPlacemark == nil) {
                 self.currentLocationLabel.text = placemark.locality;
                 [LocationManager shareInstance].currentPlacemark = placemark;
             }
@@ -77,7 +77,7 @@
 #pragma mark - delegate
 - (void)locationManagerDidUpdateLocation:(LocationManager *)manager {
     self.liveLocationLabel.text = manager.livePlacemark.locality;
-    if (_currentLocationLabel.text == nil || _currentLocationLabel.text.length == 0) {
+    if ([LocationManager shareInstance].currentPlacemark == nil) {
         _currentLocationLabel.text = self.liveLocationLabel.text;
         [LocationManager shareInstance].currentPlacemark = manager.livePlacemark;
     }
